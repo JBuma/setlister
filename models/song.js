@@ -3,7 +3,8 @@ var mongoose = require("mongoose");
 var songSchema = new mongoose.Schema({
     title: String,
     artist: String,
-    link: String,
+    spotifyLink: String,
+    youtubeLink: String,
     imageLink: String
 });
 
