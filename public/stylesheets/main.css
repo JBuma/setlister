@@ -1,0 +1,110 @@
+body{
+    /*background-color: #1D2125;*/
+    /*background-color: #21272E;*/
+    /*background-color: #172333;*/
+    background-color: #0d151e;
+    color:white;
+}
+body.pushable>.pusher {
+  background-color: #0d151e;
+}
+body.pushable{
+    background-color: #0d151e!important;
+}
+#mainContent{
+    margin-top:50px;
+    margin-right:300px;
+    /*margin-left:300px;*/
+}
+.ui.form .field>label{
+    color: white;
+}
+.title{
+    text-shadow: 0px 2px 3px rgba(0,0,0,0.7);
+    font-size: 4.0em;
+}
+.ui.inverted.menu{
+    background-color: rgb(15,15,20);
+}
+.ui.segment,
+.ui.sticky{
+    /*background-color: #333C44;*/
+    background-color: #273747;
+    border-radius: 1px;
+    box-shadow: 0px 5px 10px 3px rgba(0,0,0,0.1)
+}
+.playlistItem{
+    padding-left: 15px;
+    padding-right:15px;
+    padding: 10px 15px 10px 15px;
+}
+.playlistItem:hover{
+    background-color: #1e2b38;
+    box-shadow: 0px 5px 10px 3px rgba(0,0,0,0.1);
+    margin:-1%;
+}
+/*BUTTONS*/
+.ui.green.button{
+    background-color: #30e849;
+}
+.ui.button.red{
+    background-color: #e83a30;
+}
+
+/*PLAYLIST*/
+#playlistBlock{
+    padding:0px;
+    border:0;
+}
+#playlistBlock h3{
+    padding:10px;
+}
+
+#playlistBlock ul{
+    list-style: none;
+    padding: 0px;
+    margin:0px;
+}
+
+#playingNowImg{
+    width: 128px;
+    height:128px;
+    margin:0 auto;
+}
+#sidebarPlaylist{
+    background-color: #0F0F14;
+}
+#playlistUpNext{
+    list-style: none;
+    padding:0;
+}
+#playlistUpNext li:nth-child(even){
+    background-color: #16161e;
+}
+#playlistUpNext li{
+    padding: 10px;
+}
+#playlistUpNext li:hover{
+    background-color: #1e2b38;
+}
+#rateButtons{
+    padding-left:10px;
+    padding-right: 10px;
+    margin-left:14px;
+    margin-top:20px;
+    width:300px;
+}
+#rateButtons div .ui.green.button{
+    padding-right: 0px;
+}
+/*.purple.item:hover{*/
+/*    background-color: purple!important;*/
+/*}*/
+.songPost .grid{
+    box-shadow: 0px 5px 10px 3px rgba(0,0,0,0.1);
+    margin: 3.25%;
+}
+.songImage{
+    width:7vw;
+    height:7vw;
+}

@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+
+<h1 class="title">Home Page</h1>
+    <div class="ui segment">
+        <!--Content-->
+        <h1>Hello?</h1>
+        <h4>Hello.</h4>
+        <% for(var i=0;i<5;i++){ %>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus mi, elementum vel mattis quis, accumsan nec turpis. Mauris id efficitur ex. Nam sagittis vitae eros porttitor aliquet. In interdum convallis ante, in imperdiet turpis dictum sagittis. Ut fringilla velit orci, sed venenatis libero tristique ac. Duis dignissim gravida dignissim. Praesent ex lorem, mollis eu velit vitae, porta pretium mauris. Duis nec lorem nisl. Vestibulum nibh neque, varius a bibendum rutrum, pellentesque ut mi. Etiam efficitur nulla nec mattis imperdiet. Morbi hendrerit nulla sed sapien egestas, sed feugiat elit egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+        <% } %>
+        <h3>Songs in Database:</h3>
+        <div class="ui grid">
+        <% songs.forEach(function(song){ %>
+        <div class="seven wide column songPost">
+            <div class="ui stackable grid">
+                <div class="five wide column">
+                    <span><img src='<%= song.imageLink %>' class="songImage"></span>
+                </div>
+                <div class="eleven wide column">
+                    <p><strong><%= song.artist %></strong> - <%= song.title %></p>
+                    <% if(song.link.includes('spotify')){ %>
+                    <a href="<%= song.link %>"><button class="compact big ui green icon button" href="<%= song.link %>"><i class="spotify icon"></i></button></a>
+                <% }else if(song.link.includes('youtube.com')||song.link.includes('youtu.be/')){ %>
+                    <a href="<%= song.link %>"><button class="compact big ui red icon button" href="<%= song.link %>"><i class="youtube icon"></i></button></a>
+                <% } else if(song.link.includes('soundcloud')){ %>
+                    <a href="<%= song.link %>"><button class="compact big ui orange icon button" href="<%= song.link %>"><i class="soundcloud icon"></i></button></a>
+                <% } %>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+        </div>
+    </div>
+<!--Sidebar-->
+
+<% include ../partials/footer %>
