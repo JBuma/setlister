@@ -5,7 +5,8 @@ var songSchema = new mongoose.Schema({
     artist: String,
     spotifyLink: String,
     youtubeLink: String,
-    imageLink: String
+    imageLink: String,
+    spotifyUri: String
 });
 
 module.exports = mongoose.model("Song",songSchema);

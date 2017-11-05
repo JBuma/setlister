@@ -51,7 +51,8 @@ router.post('/',function(req,res){
                 artist: data['artists'][0]['name'],
                 spotifyLink: req.body.spotifyLink,
                 youtubeLink : youtubeLink,
-                imageLink: data["album"]['images'][1]['url']
+                imageLink: data["album"]['images'][1]['url'],
+                spotifyUri: data['uri']
             }
                 
                 console.log(youtubeLink);
@@ -89,13 +90,14 @@ router.post("/playlist",function(req, res) {
                 var searchData = JSON.stringify(result, null, 2);
                 searchData = JSON.parse(searchData);
                 var youtubeLink = 'https://www.youtube.com/watch?v='+searchData['items'][0]['id']['videoId'];
-                
+                console.log(song);
                 var makerSong = {
                     title: song['track']['name'],
                     artist: song['track']['artists'][0]['name'],
-                    spotifyLink: req.body.spotifyLink,
+                    spotifyLink: song['track']['external_urls']['spotify'],
                     youtubeLink : youtubeLink,
-                    imageLink: song['track']["album"]['images'][1]['url']
+                    imageLink: song['track']["album"]['images'][1]['url'],
+                    spotifyUri: song['track']['uri']
                 };
                 
                 console.log(youtubeLink);

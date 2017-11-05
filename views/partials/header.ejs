@@ -4,6 +4,10 @@
         <title>Setlister</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/semantic/dist/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
+        <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
     </head>
 <body>
     <div class="ui vertical container inverted sidebar menu" id="sidebarMenu">
@@ -11,33 +15,46 @@
         <a class="item" href="/">Home</a>
         <a class="item" href="/songs/new">Add a Song</a>
     </div>
+    <!--<div class="ui right fixed rail">-->
+    <!--    <button class="ui icon black button" style="height:100%;position:fixed;left:98%;" id="openPlaylistButton"><i class="chevron left icon"></i></button>-->
+    <!--</div>-->
     <div class="ui vertical container inverted wide right sidebar" id="sidebarPlaylist">
-        <div class="header item">Playlist</div>
-        <div class="ui grid item" id="playingNow">
-            <iframe class="ui attached" src="https://open.spotify.com/embed?uri=spotify:track:2JB7PvDV0R3Vwbq0iy1WPe" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
-        </div>
-        <div id="rateButtons">
-            <div class="ui buttons">
-                <button class="fluid ui red button">Next</button>
-                <div class="or"></div>
-                <button class="fluid ui green button">Approve</button>
+        <div class="ui grid">
+            <div class="one wide column">
+                <button class='ui black button' id="closePlaylistButton"><i class="chevron right icon"></i></button>
+            </div>
+            <div class="fifteen wide column">
+                <!--<div class="header item">Playlist</div>-->
+                <% if(songs[0]){ %>
+                    <div class="ui grid item" id="playingNow">
+                        
+                        <iframe class="ui" src="https://open.spotify.com/embed?uri=<%= songs[0]['spotifyUri'] %>" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>
+                    </div>
+                    <div id="rateButtons">
+                        <div class="ui buttons">
+                            <button class="fluid ui red button" id="songApproveNegative">Next</button>
+                            <div class="or"></div>
+                            <button class="fluid ui green button" id="songApprovePositive">Approve</button>
+                        </div>
+                    </div>
+                <% } %>
+                <h3>Up Next:</h3>
+                <ol id="playlistUpNext">
+                
+                </ol>
             </div>
         </div>
-        <h3>Up Next:</h3>
-        <ol id="playlistUpNext">
-        <% for(var i=0;i<15;i++){ %>
-            <li><strong>Billy</strong> - Mama Mia</li>
-        <% } %>
-        </ol>
     </div>
-    <div class="ui huge inverted fixed menu">
+    <!--<button class="ui big purple button left attached compact" id="closePlaylistButton">Close</button>-->
+    <div class="ui two item huge inverted fixed menu">
         <div class='ui container'>
             <a class="item" id="sidebarToggler">
                 <i class="sidebar icon"></i>Menu
             </a>
             <a class="item" id="playlistToggler">
-                <i class="music icon"></i>Playlist
+                Playlist <i class="music icon"></i>
             </a>
         </div>
     </div>
+    
     <div class="ui container pusher" id="mainContent">

@@ -4,35 +4,117 @@
     <div class="ui segment">
         <!--Content-->
         <h1>Hello?</h1>
-        <h4>Hello.</h4>
-        <% for(var i=0;i<5;i++){ %>
+        <button class='ui purple icon button' id="showAddSongForm"><i class="add icon"></i>Add a song</button>
+        <% for(var i=0;i<1;i++){ %>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed purus mi, elementum vel mattis quis, accumsan nec turpis. Mauris id efficitur ex. Nam sagittis vitae eros porttitor aliquet. In interdum convallis ante, in imperdiet turpis dictum sagittis. Ut fringilla velit orci, sed venenatis libero tristique ac. Duis dignissim gravida dignissim. Praesent ex lorem, mollis eu velit vitae, porta pretium mauris. Duis nec lorem nisl. Vestibulum nibh neque, varius a bibendum rutrum, pellentesque ut mi. Etiam efficitur nulla nec mattis imperdiet. Morbi hendrerit nulla sed sapien egestas, sed feugiat elit egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
         <% } %>
         <h3>Songs in Database:</h3>
-        <div class="ui grid">
+        <div class="ui four doubling cards">
         <% songs.forEach(function(song){ %>
-        <div class="seven wide column songPost">
-            <div class="ui stackable grid">
-                <div class="five wide column">
-                    <span><img src='<%= song.imageLink %>' class="songImage"></span>
+            <div class="card songPost">
+                <div class="image">
+                    <img src='<%= song.imageLink %>' class="songImage">
                 </div>
-                <div class="eleven wide column">
-                    <p><strong><%= song.artist %></strong> - <%= song.title %></p>
-                    <% if(song['spotifyLink']){ %>
-                        <a href="<%= song['spotifyLink'] %>"><button class="compact big ui green icon button" href="<%= song['spotifyLink'] %>"><i class="spotify icon"></i></button></a>
-                    <% }; %>
-                    <% if(song['youtubeLink']){ %>
-                        <a href="<%= song['youtubeLink'] %>"><button class="compact big ui red icon button" href="<%= song['youtubeLink'] %>"><i class="youtube icon"></i></button></a>
-                    <% }; %>
-                    <% if(song['soundcloud']){ %>
-                        <a href="<%= song.link %>"><button class="compact big ui orange icon button" href="<%= song.link %>"><i class="soundcloud icon"></i></button></a>
-                    <% }; %>
+                <div class='content'>
+                    <div class="header">
+                        <%= song.artist %> - <strong><%= song.title %></strong>
+                    </div>
+                    <div class="description">
+                        <% if(song['spotifyLink']){ %>
+                            <a href="<%= song['spotifyLink'] %>"><button class="compact big ui green icon button" href="<%= song['spotifyLink'] %>"><i class="spotify icon"></i></button></a>
+                        <% }; %>
+                        <% if(song['youtubeLink']){ %>
+                            <a href="<%= song['youtubeLink'] %>"><button class="compact big ui red icon button" href="<%= song['youtubeLink'] %>"><i class="youtube icon"></i></button></a>
+                        <% }; %>
+                        <% if(song['soundcloud']){ %>
+                            <a href="<%= song.link %>"><button class="compact big ui orange icon button" href="<%= song.link %>"><i class="soundcloud icon"></i></button></a>
+                        <% }; %>
+                    </div>
+                </div>
+                <div class="ui bottom attached">
+                    <button class="ui fluid purple bottom attached addToPlaylist icon button" value="<%= song['_id'] %>"><i class="add icon"></i> Add to playlist</button>
                 </div>
             </div>
-        </div>
         <% }) %>
         </div>
     </div>
+    <div class="ui modal" id="addSongForm">
+    <h1>Add a New song (Enter only one link)</h1>
+    <div class="ui grid">
+        <div class="six wide column">
+            <form action="/songs" method="POST" class="ui form">
+                <div class="field">
+                    <label for="songLink">Spotify Track Link:</label>
+                    <input type="text" placeholder="Spotify Track Link" name="spotifyLink" id="songLink">
+                </div>
+                <button class="ui fluid purple button" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="four wide column"></div>
+                <div class="six wide column">
+            <form action="/songs/playlist" method="POST" class="ui form">
+                <div class="field">
+                    <label for="songLink">Spotify Playlist Link:</label>
+                    <input type="text" placeholder="Spotify Playlist Link" name="spotifyLink" id="songLink">
+                </div>
+                <button class="ui fluid purple button" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
 <!--Sidebar-->
-
+<script type="text/javascript">
+var databaseSongs = <%- JSON.stringify(songs) %>
+var currentSongs = <%- JSON.stringify(songs) %>
+    $(document).ready(function(){
+        
+        for(var i =1;i<currentSongs.length;i++){
+        var listItem = "<li>"+currentSongs[i]['title']+" - "+currentSongs[i]['artist']+"</li>"
+            $('#playlistUpNext').append(listItem)
+    }
+        
+    //     currentSongs.forEach(function(song){
+        
+    //         console.log(song['title']);
+    //         var listItem = "<li>"+song['title']+" - "+song['artist']+"</li>"
+    //         $('#playlistUpNext').append(listItem)
+        
+    // })
+    
+    $('#songApprovePositive').click(function(){
+        nextSong();
+    })
+        console.log(currentSongs);
+    $(".addToPlaylist").click(function() {
+    var songId = this.value;
+    console.log(songId);
+    databaseSongs.forEach(function(song){
+        if(song['_id']==songId){
+            console.log(song['title']);
+            var listItem = "<li>"+song['title']+" - "+song['artist']+"</li>"
+            
+            if(!currentSongs[0]){
+                $('#playingNow').append('<iframe class="ui attached" src="https://open.spotify.com/embed?uri='+song['spotifyUri']+'"width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>');
+            }else{
+                $('#playlistUpNext').append(listItem)
+            }
+            currentSongs.push(song)
+        }
+    })
+    
+    // $('#playingNow').children().remove();
+    // // $('#playingNow').append("HELLO THERE I AM BACK YES");
+    // $('#playingNow').append('<iframe class="ui attached" src="https://open.spotify.com/embed?uri='+spotifyUri+'" width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>');
+})
+    });
+    function nextSong(){
+        $('#playlistUpNext li:first-child').remove();
+        $('#playingNow').children().remove();
+        if(currentSongs[0]){
+            currentSongs.shift();
+            console.log(currentSongs)
+            $('#playingNow').append('<iframe class="ui attached" src="https://open.spotify.com/embed?uri='+currentSongs[0]['spotifyUri']+'"width="100%" height="80" frameborder="0" allowtransparency="true"></iframe>');
+        }
+    }
+</script>
 <% include ../partials/footer %>

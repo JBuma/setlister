@@ -1,5 +1,3 @@
-First Commit
-
-<% if(song['spotifyLink']){ %>
-                        <a href="<%= song['spotifyLink'] %>"><button class="compact big ui green icon button" href="<%= song['spotifyLink'] %>"><i class="spotify icon"></i></button></a>
-                    <% }; %>
+#Setlister
+##Description
+Idunno, just something i made to fuck around and test api's and shit, final version should have song approval for faster song playing and shit
